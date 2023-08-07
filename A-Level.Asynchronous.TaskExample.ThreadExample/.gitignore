@@ -1,0 +1,10 @@
+.vs/
+.vscode/
+ci/
+testresults/
+bin/
+obj/
+env/
+*.user
+*.db
+aws-lambda-tools-defaults.json
