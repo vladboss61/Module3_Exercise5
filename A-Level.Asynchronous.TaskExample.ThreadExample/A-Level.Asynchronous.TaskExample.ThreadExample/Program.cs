@@ -4,41 +4,47 @@ namespace A_Level.Asynchronous.TaskExample.ThreadExample;
 
 internal sealed class Program
 {
+    
+    public static int DoWork()
+    {
+        Console.WriteLine($"Thread 2 Id: {Thread.CurrentThread.ManagedThreadId}");
+        Console.WriteLine("Started...");
+        Thread.Sleep(4000);
+        Console.WriteLine("Ended...");
+        return 255;
+    }
+
+    public static async Task WriteLinesAsync()
+    {
+        using (var writer = new StreamWriter("text.txt"))
+        {
+            var t1 = writer.WriteLineAsync("123");
+            var t2 = writer.WriteLineAsync("456 ---------");
+            var t3 = writer.WriteLineAsync("--------- 789");
+            var t4 = writer.WriteLineAsync("---------  101112");
+
+            await Task.WhenAll(t1, t2, t3, t4);
+        }
+    }
+
     public static async Task Main(string[] args)
     {
-        var result = await TasksExample.TaskCompletionSourceExampleAsync();
-        //await TasksExample.TaskExampleAsync();
+        await WriteLinesAsync();
 
-        //await TasksExample.TaskRun();
-        //await TasksExample.TaskContinueWithRunAsync();
+        string[] lines = await TasksExample.ReadFromFileAsync();
 
-        //await TasksExample.DoubleAsyncExampleAsync();
+        //Console.WriteLine($"Thread 1 Id: {Thread.CurrentThread.ManagedThreadId}");
 
-        //Thread.Sleep(10000);
 
-        //ThreadCounter.LockExample();
-
-        //var thread = new Thread(Something);
-        //thread.Start();
-
-        //for (int i = 0; i < 20; i++)
+        //Task<int> task = Task.Run(() =>
         //{
-        //    Console.WriteLine($"Current Thread Id: {Thread.CurrentThread.ManagedThreadId}");
-        //    Console.WriteLine(i * 2);
-        //    Thread.Sleep(1000);
-        //}
+        //    // 2
+        //    return DoWork();
+        //});
 
+        //await task;
 
-        //var processNode = Process.Start("node.exe");
-
-        //ThreadsExample.CurrentThread();
-        //ThreadsExample.ThreadExample();
-
-        //ThreadsExample.TimerExample();
-        //ThreadCounter.LockExample();
-        //TasksExample.DoubleAsyncExampleAsync();
-        //await TasksExample.ThreadExampleAsync();
-        Console.WriteLine("End of program.");
+        Console.Read();
     }
 
     public static void Something()

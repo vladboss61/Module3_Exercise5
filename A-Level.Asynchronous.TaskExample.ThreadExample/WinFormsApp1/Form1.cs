@@ -9,8 +9,15 @@ public partial class Form1 : Form
 
     private void button1_Click(object sender, EventArgs e)
     {
-        Task.Delay(3000).ContinueWith(x => {
-            this.button1.Text = "asdasdad";
-        });
+        //Thread.Sleep(3000);
+        //await Task.Delay(3000)
+        Task.Delay(3000)
+            .ContinueWith(x =>
+            {
+                this.Invoke(() =>
+                {
+                    this.button1.Text = "Changed Text";
+                });
+            });
     }
 }

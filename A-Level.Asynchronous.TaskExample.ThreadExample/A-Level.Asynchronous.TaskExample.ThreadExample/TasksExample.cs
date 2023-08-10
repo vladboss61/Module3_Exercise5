@@ -27,9 +27,10 @@ internal class TasksExample
     public static Task<string[]> ReadFromFileAsync()
     {
         var reader = new StreamReader("file-example.txt");
-
         return Task.Run(async () =>
         {
+            Console.WriteLine($"Thread 1 Id: {Thread.CurrentThread.ManagedThreadId}");
+
             var list = new List<string>();
             while (!reader.EndOfStream)
             {
