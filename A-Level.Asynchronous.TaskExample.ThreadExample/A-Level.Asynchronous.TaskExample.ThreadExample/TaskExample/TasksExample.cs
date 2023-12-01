@@ -1,4 +1,6 @@
-﻿namespace A_Level.Asynchronous.TaskExample.ThreadExample;
+﻿using A_Level.Asynchronous.TaskExample.ThreadExample.Core;
+
+namespace A_Level.Asynchronous.TaskExample.ThreadExample.TaskExample;
 
 internal class TasksExample
 {
@@ -12,7 +14,7 @@ internal class TasksExample
             await Task.Delay(2000);
             ConsoleSwitch.SwitchTo(ConsoleColor.Red, () => Console.WriteLine($"After: Thread Id in Lambda: {Thread.CurrentThread.ManagedThreadId}."));
         });
- 
+
         task.Start();
 
         Console.WriteLine($"Before await: Thread Id {Thread.CurrentThread.ManagedThreadId}.");
@@ -87,12 +89,14 @@ internal class TasksExample
 
     public static Task TaskRun()
     {
-        Task<int> task = Task.Run(async () => {
+        Task<int> task = Task.Run(async () =>
+        {
             await Task.Delay(2000);
             return 111;
         });
 
-        task.ContinueWith(t => {
+        task.ContinueWith(t =>
+        {
             ConsoleSwitch.SwitchTo(ConsoleColor.Red, () => Console.WriteLine($"TaskRun: Thread Id in Lambda: {Thread.CurrentThread.ManagedThreadId}."));
             Console.WriteLine("TaskRun: Task completed with result: " + t.Result);
         });
@@ -102,7 +106,8 @@ internal class TasksExample
 
     public static async Task TaskContinueWithRunAsync()
     {
-        Task<int> task = Task.Run(async () => {
+        Task<int> task = Task.Run(async () =>
+        {
             await Task.Delay(2000);
             return 999;
         });

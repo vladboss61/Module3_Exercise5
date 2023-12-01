@@ -1,4 +1,4 @@
-﻿namespace A_Level.Asynchronous.TaskExample.ThreadExample;
+﻿namespace A_Level.Asynchronous.TaskExample.ThreadExample.Core;
 
 internal static class ConsoleSwitch
 {
